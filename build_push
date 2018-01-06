@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+docker build -t achmanngopf/time-recording-django .
+docker push achmanngopf/time-recording-django

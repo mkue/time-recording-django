@@ -1,0 +1,39 @@
+{% load staticfiles %}
+<html>
+<head>
+    <title>Zeiterfassung</title>
+
+    {% block css %}
+        <link rel="stylesheet" href="{% static 'yarn/bootstrap/dist/css/bootstrap.min.css' %}" type='text/css'>
+        <link rel="stylesheet" href="{% static 'yarn/bootstrap/dist/css/bootstrap-theme.min.css' %}" type='text/css'>
+        <link rel="stylesheet" href="{% static 'yarn/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css' %}"/>
+        <link rel="stylesheet" href="{% static 'css/custom.css' %}">
+    {% endblock %}
+
+    {% block js %}
+        <script type="text/javascript" src="{% static 'yarn/jquery/dist/jquery.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'yarn/moment/min/moment.min.js' %}"></script>
+        <script src="{% static 'yarn/bootstrap/dist/js/bootstrap.min.js' %}"></script>
+        <script src="{% static 'yarn/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js' %}"></script>
+    {% endblock %}
+</head>
+<body>
+
+<nav class="navbar navbar-default" role="navigation">
+    <div class="navbar-center navbar-brand">
+        <a class="navbar-brand" href="/">
+            <img src="{% static 'logo.png' %}">
+        </a>
+    </div>
+</nav>
+
+<div class="content container">
+    <div class="row">
+        <div class="col-sm-12">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
+</body>
+</html>

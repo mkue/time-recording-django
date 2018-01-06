@@ -1,0 +1,13 @@
+{
+  "name": "time-recording-django",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.47"
+  },
+  "scripts": {
+    "newinstall": "yarn install --production --modules-folder ./django_root/recorder/static/yarn/"
+  }
+}

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+
+{% block js %}
+    {{ block.super }}
+    <script src="{% static 'templates/timestamp.js' %}"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="row">
+        <div class="col-cs-12 text-center">
+            <h3>{{ machine }}</h3>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-7 text-center">
+            <h5>Datum</h5>
+            <div class="date-picker m-t-lg"></div>
+        </div>
+        <div class="col-xs-5 text-center">
+            <h5>Dauer</h5>
+            <div class="start-time-picker m-t-lg"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-6 col-xs-offset-3 m-t-lg">
+            <select id="comment-selector" class="form-control m-t-md" name="comment">
+                <option value="default" disabled="disabled" selected>Kommentar</option>
+                {% for comment in comments %}
+                    <option value="{{ comment.id }}">{{ comment.text }}</option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-4 col-xs-offset-4 text-center m-t-lg">
+            <button id="submit-button" class="btn btn-xlarge btn-success" data-employee-id="{{ employee_id }}" data-machine-id="{{ machine.id }}">Fertig</button>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,38 @@
+# PyCharm settings
+.idea
+
+# Yarn
+yarn.lock
+/django_root/recorder/static/yarn/
+!/django_root/recorder/static/yarn/jquery/dist/jquery.min.js
+!/django_root/recorder/static/yarn/moment/min/moment.min.js
+!/django_root/recorder/static/yarn/bootstrap/dist/js/bootstrap.min.js
+!/django_root/recorder/static/yarn/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js
+
+
+# Database
+/db/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
