@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for machine in machines %}
+    {% for group in groups %}
         <div class="col-sm-3 m-t-lg">
-            <a type="button" href="/employees/{{ employee.id }}/{{ machine.id }}">
+            <a type="button" href="/groups/{{ group.id }}">
                 <button class="btn btn-xlarge btn-default">
-                    {{ machine }}
+                    {{ group.name }}
                 </button>
             </a>
         </div>

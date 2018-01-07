@@ -21,10 +21,22 @@ class Project(models.Model):
         return total_costs
 
 
+class EmployeeGroup(models.Model):
+    name = models.CharField(verbose_name='Bezeichnung', max_length=64)
+
+    class Meta:
+        verbose_name = 'Mitarbeitergruppe'
+        verbose_name_plural = 'Mitarbeitergruppen'
+
+    def __str__(self):
+        return self.name
+
+
 class Employee(models.Model):
     first_name = models.CharField(verbose_name='Vorname', max_length=64)
     last_name = models.CharField(verbose_name='Nachname', max_length=64)
     cost_rate = models.IntegerField(verbose_name='Kostensatz', default=80)
+    group = models.ForeignKey(EmployeeGroup, verbose_name='Gruppe', related_name='employees')
 
     class Meta:
         verbose_name = 'Mitarbeiter'
@@ -46,18 +58,19 @@ class MachineType(models.Model):
 
 
 class Machine(models.Model):
-    number = models.IntegerField(verbose_name='Maschinennummer')
+    number = models.IntegerField(verbose_name='Nummer')
+    description = models.CharField(verbose_name='Bezeichnung', max_length=64)
     project = models.ForeignKey(Project, verbose_name='Projekt')
     type = models.ForeignKey(MachineType, verbose_name='Typ', blank=True, null=True)
     active = models.BooleanField(verbose_name='Aktiv', default=True)
-    assigned_employees = models.ManyToManyField(Employee, related_name='machines')
+    assigned_employees = models.ManyToManyField(Employee, related_name='machines', null=True, blank=True)
 
     class Meta:
         verbose_name = 'Kostenträger'
         verbose_name_plural = 'Kostenträger'
 
     def __str__(self):
-        return str(self.number) + ' - ' + str(self.type)
+        return str(self.number) + ' - ' + str(self.description)
 
     def material_costs(self):
         total_costs = MaterialCost.objects.filter(machine_id=self.id).aggregate(Sum('amount'))['amount__sum']
@@ -112,13 +125,6 @@ class MaterialCost(models.Model):
 
 
 class Earning(models.Model):
-    type_choices = (
-        ('a', 'Hola'),
-        ('b', 'Hello'),
-        ('c', 'Bonjour'),
-        ('d', 'Boas'),
-    )
-
     type = models.CharField(verbose_name='Typ', default='d', max_length=1,
                             choices=[('a', 'Maschine'), ('b', 'Ersatzteil'), ('c', 'Service'), ('d', 'Sonstiges')])
     project = models.ForeignKey(Project, verbose_name='Projekt')

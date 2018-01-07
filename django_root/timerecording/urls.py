@@ -20,8 +20,9 @@ from django.views.generic import RedirectView
 from recorder import views
 
 urlpatterns = [
-    url(r'^$', RedirectView.as_view(url='/employees', permanent=True)),
-    url(r'^employees/$', views.employees, name='home'),
+    url(r'^$', RedirectView.as_view(url='/groups', permanent=True)),
+    url(r'^groups/$', views.emloyee_groups),
+    url(r'^groups/(?P<group_id>[0-9]+)/$', views.employees, name='home'),
     url(r'^employees/(?P<employee_id>[0-9]+)/$', views.machines),
     url(r'^employees/(?P<employee_id>[0-9]+)/(?P<machine_id>[0-9]+)/$', views.timestamp),
     url(r'^admin/', admin.site.urls),

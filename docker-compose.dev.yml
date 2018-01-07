@@ -5,6 +5,8 @@ services:
   web:
     build: .
     container_name: timerecording_web_dev
+    volumes:
+      - ./django_root:/src
     environment:
       - DJANGO_CONFIGURATION=Dev
       - DJANGO_SETTINGS_MODULE=timerecording.settings

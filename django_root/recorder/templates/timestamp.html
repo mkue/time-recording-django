@@ -39,7 +39,9 @@
 
     <div class="row">
         <div class="col-xs-4 col-xs-offset-4 text-center m-t-lg">
-            <button id="submit-button" class="btn btn-xlarge btn-success" data-employee-id="{{ employee_id }}" data-machine-id="{{ machine.id }}">Fertig</button>
+            <button id="submit-button" class="btn btn-xlarge btn-success" data-employee-id="{{ employee.id }}"
+                    data-group-id="{{ employee.group.id }}" , data-machine-id="{{ machine.id }}">Fertig
+            </button>
         </div>
     </div>
 {% endblock %}

@@ -1,11 +1,17 @@
 from django.apps import apps
 from django.contrib import admin
 
-from recorder.models import Employee, Project, Comment, LabourCost, Machine, MachineType, Earning, MaterialCost
+from recorder.models import Employee, Project, Comment, LabourCost, Machine, MachineType, Earning, MaterialCost, \
+    EmployeeGroup
 
 # Register your models here.
 
 app = apps.get_app_config('recorder')
+
+
+@admin.register(EmployeeGroup)
+class EmployeeGroupAdmin(admin.ModelAdmin):
+    ordering = ('name',)
 
 
 @admin.register(Employee)
@@ -61,7 +67,7 @@ class MaterialCostAdmin(admin.ModelAdmin):
 
 @admin.register(Machine)
 class MachineAdmin(admin.ModelAdmin):
-    list_display = ('number', 'type', 'active')
+    list_display = ('number', 'description', 'type', 'active')
     ordering = ('-number',)
     list_filter = ('type', 'active')
     list_editable = ('active',)

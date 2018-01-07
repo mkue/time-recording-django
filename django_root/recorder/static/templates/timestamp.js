@@ -12,6 +12,7 @@ $(document).ready(function () {
 
     $('#submit-button').click(function (event, data) {
         const employeeId = $(this).attr("data-employee-id");
+        const groupId = $(this).attr("data-group-id");
         const machineId = $(this).attr("data-machine-id");
         const dateSelected = dateSelector.data('DateTimePicker').date();
         const time = timeSelector.data('DateTimePicker').date();
@@ -26,7 +27,7 @@ $(document).ready(function () {
                 comment_id: commentId
             }, function (data, status) {
                 if (status === 'success') {
-                    window.location.href = '/';
+                    window.location.href = '/groups/' + groupId;
                 } else {
                     alert('Oops, something went wrong...')
                 }
