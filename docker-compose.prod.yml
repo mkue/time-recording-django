@@ -20,23 +20,36 @@ services:
     image: achmanngopf/time-recording-django
     container_name: timerecording_web
     environment:
-      - DJANGO_CONFIGURATION=Prod
-      - DJANGO_SETTINGS_MODULE=timerecording.settings
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
-    ports:
-      - 8000:8000
+      DJANGO_CONFIGURATION: Prod
+      DJANGO_SETTINGS_MODULE: timerecording.settings
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - static:/static
     depends_on:
       - db
 
   db:
-    image: postgres:10
+    image: postgres:9.6
     container_name: timerecording_db
     ports:
       - 5432:5432
     volumes:
-      - ./db/prod:/var/lib/postgresql/data
+      - ./db/prod/pgdata:/var/lib/postgresql/data/
+      - ./db/prod/init:/docker-entrypoint-initdb.d/
     environment:
       - POSTGRES_DB=timerecording
       - POSTGRES_PASSWORD=${DB_PASSWORD}
+
+
+  db-backup:
+    image: jmcarbo/docker-postgres-backup
+    volumes:
+      - ./db/prod/backup:/backup
+    environment:
+      POSTGRES_HOST: db
+      POSTGRES_PORT: 5432
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: timerecording
+      CRON_TIME: "0 2 * * *"
+      MAX_BACKUPS: 100

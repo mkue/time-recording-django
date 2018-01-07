@@ -19,6 +19,7 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - ./db/dev:/var/lib/postgresql/data
+      - ./db/dev/pgdata:/var/lib/postgresql/data/
+      - ./db/dev/init:/docker-entrypoint-initdb.d/
     environment:
       - POSTGRES_DB=timerecording_dev
