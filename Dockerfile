@@ -6,7 +6,9 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update && apk add build-base postgresql-dev git bash
 RUN git clone https://github.com/vishnubob/wait-for-it.git /docker
 
-COPY config /config
+COPY config/requirements.txt /config/requirements.txt
+COPY config/nginx.conf /config/nginx/default.conf
+
 
 RUN pip install --upgrade pip
 RUN pip install -r /config/requirements.txt

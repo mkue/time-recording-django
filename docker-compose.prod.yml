@@ -2,35 +2,37 @@ version: '3'
 
 volumes:
   static: {}
+  nginx: {}
 
 services:
 
   nginx:
     image: nginx:latest
-    container_name: timerecording_nginx
+    container_name: time-recording-nginx
     ports:
       - 80:8000
     volumes:
-      - ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - static:/static
+      - static:/static/
+      - nginx:/etc/nginx/conf.d/
     depends_on:
       - web
 
   web:
     image: achmanngopf/time-recording-django
-    container_name: timerecording_web
+    container_name: timerecording-web
     environment:
       DJANGO_CONFIGURATION: Prod
       DJANGO_SETTINGS_MODULE: timerecording.settings
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - static:/static
+      - static:/static/
+      - nginx:/config/nginx/
     depends_on:
       - db
 
   db:
     image: postgres:9.6
-    container_name: timerecording_db
+    container_name: timerecording-db
     ports:
       - 5432:5432
     volumes:
@@ -43,6 +45,7 @@ services:
 
   db-backup:
     image: jmcarbo/docker-postgres-backup
+    container_name: timerecording-db-backup
     volumes:
       - ./db/prod/backup:/backup
     environment:
