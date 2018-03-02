@@ -3,8 +3,10 @@ import datetime
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.renderers import JSONRenderer
 
 from recorder.models import Employee, LabourCost, Comment, Machine, EmployeeGroup
+from recorder.serializers import LabourCostSerializer
 
 
 def emloyee_groups(request):
@@ -21,6 +23,12 @@ def machines(request, employee_id):
     machines = Machine.objects.filter(assigned_employees__id=employee_id, active=True).order_by('number')
     employee = Employee.objects.get(id=employee_id)
     return render(request, 'project_list.html', {'machines': machines, 'employee': employee})
+
+
+def group_chart(request, group_id):
+    labour_costs = LabourCost.objects.filter(employee__group=group_id)
+    serializer = LabourCostSerializer(labour_costs, many=True)
+    return render(request, 'group_chart.html', {'labourcosts': JSONRenderer().render(serializer.data)})
 
 
 @csrf_exempt

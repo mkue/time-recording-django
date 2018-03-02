@@ -29,6 +29,7 @@ class Base(Configuration):
     # Application definition
 
     INSTALLED_APPS = [
+        'rest_framework',
         'recorder.apps.RecorderConfig',
         'django.contrib.admin',
         'django.contrib.auth',

@@ -63,7 +63,7 @@ class Machine(models.Model):
     project = models.ForeignKey(Project, verbose_name='Projekt')
     type = models.ForeignKey(MachineType, verbose_name='Typ', blank=True, null=True)
     active = models.BooleanField(verbose_name='Aktiv', default=True)
-    assigned_employees = models.ManyToManyField(Employee, related_name='machines', null=True, blank=True)
+    assigned_employees = models.ManyToManyField(Employee, related_name='machines', blank=True)
 
     class Meta:
         verbose_name = 'Kostenträger'
