@@ -33,21 +33,22 @@ var reduceDate = function (data) {
 
     return _.reduce(data, function (memo, entry) {
         var entryDate = moment(entry.date);
+        var employeeId = entry.employee.id;
+        var match = _.find(memo, function (item) { return item.employee.id === employeeId });
+        if (!match) {
+            match = {employee: entry.employee, duration: 0};
+            memo.push(match);
+        }
         if (entryDate.isBetween(startDate, endDate, 'day', '[]')) {
-            var employeeId = entry.employee.id;
-            var match = _.find(memo, function (item) { return item.employee.id === employeeId });
-            if (match)
-                match.duration += entry.duration;
-            else {
-                memo.push({employee: entry.employee, duration: entry.duration})
-            }
+            match.duration += entry.duration;
         }
         return memo;
     }, []);
 };
 
 var reloadChart = function (chart) {
-    $.get('/api/groups/2/', function (data) {
+    var groupId = window.location.pathname.split('/')[2];
+    $.get('/api/groups/' + groupId, function (data) {
         var chartData = reduceDate(data);
         chart.data.labels = _.map(chartData, function (entry) { return entry.employee.first_name + ' ' + entry.employee.last_name })
         chart.data.datasets[0].data = _.map(chartData, function (entry) { return parseInt(entry.duration / 60) });
