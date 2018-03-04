@@ -26,5 +26,6 @@ urlpatterns = [
     url(r'^groups/(?P<group_id>[0-9]+)/chart/$', views.group_chart),
     url(r'^employees/(?P<employee_id>[0-9]+)/$', views.machines),
     url(r'^employees/(?P<employee_id>[0-9]+)/(?P<machine_id>[0-9]+)/$', views.timestamp),
+    url(r'^api/groups/(?P<group_id>[0-9]+)/$', views.group_chart_data),
     url(r'^admin/', admin.site.urls),
 ]
