@@ -1,13 +1,25 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for employee in employees %}
-        <div class="col-sm-3 m-t-lg">
-            <a type="button" href="/employees/{{ employee.id }}">
-                <button class="btn btn-xlarge btn-default">
-                    {{ employee }}
-                </button>
+    <div class="row">
+        <div class="col-sm-12">
+            {% for employee in employees %}
+                <div class="col-sm-3 m-t-lg">
+                    <a href="/employees/{{ employee.id }}">
+                        <button type="button" class="btn btn-default btn-xlarge">
+                            {{ employee }}
+                        </button>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="row m-t-lg">
+        <div class="col-sm-2 col-sm-offset-5">
+            <a href="/groups/{{ group_id }}/chart">
+                <button class="btn btn-xlarge btn-success">Übersicht</button>
             </a>
         </div>
-    {% endfor %}
+    </div>
 {% endblock %}

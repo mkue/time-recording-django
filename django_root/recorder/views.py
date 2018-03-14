@@ -17,7 +17,7 @@ def emloyee_groups(request):
 
 def employees(request, group_id):
     employees = Employee.objects.filter(group__id=group_id).order_by('first_name')
-    return render(request, 'employee_list.html', {'employees': employees})
+    return render(request, 'employee_list.html', {'employees': employees, 'group_id': group_id})
 
 
 def machines(request, employee_id):
