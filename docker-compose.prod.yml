@@ -54,5 +54,6 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: timerecording
+      INIT_BACKUP: ""
       CRON_TIME: "0 2 * * *"
       MAX_BACKUPS: 100
