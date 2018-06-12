@@ -5,6 +5,8 @@ from django.db.models import DO_NOTHING, Sum
 class Project(models.Model):
     number = models.IntegerField(verbose_name='Projektnummer')
     description = models.CharField(verbose_name='Bezeichnung', max_length=200)
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Projekt'
@@ -37,6 +39,8 @@ class Employee(models.Model):
     last_name = models.CharField(verbose_name='Nachname', max_length=64)
     cost_rate = models.IntegerField(verbose_name='Kostensatz', default=80)
     group = models.ForeignKey(EmployeeGroup, verbose_name='Gruppe', related_name='employees')
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Mitarbeiter'
@@ -64,6 +68,8 @@ class Machine(models.Model):
     type = models.ForeignKey(MachineType, verbose_name='Typ', blank=True, null=True)
     active = models.BooleanField(verbose_name='Aktiv', default=True)
     assigned_employees = models.ManyToManyField(Employee, related_name='machines', blank=True)
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Kostenträger'
@@ -102,6 +108,8 @@ class LabourCost(models.Model):
     duration = models.IntegerField(verbose_name='Dauer (Minuten)')
     comment = models.ForeignKey(Comment, verbose_name='Kommentar', blank=True, null=True)
     amount = models.FloatField(verbose_name="Betrag")
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Arbeitsaufwand'
@@ -115,6 +123,8 @@ class MaterialCost(models.Model):
     machine = models.ForeignKey(Machine, verbose_name='Kostenträger', on_delete=DO_NOTHING)
     description = models.CharField(verbose_name='Bezeichnung', max_length=200)
     amount = models.FloatField(verbose_name="Betrag")
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Materialaufwand'
@@ -129,7 +139,8 @@ class Earning(models.Model):
                             choices=[('a', 'Maschine'), ('b', 'Ersatzteil'), ('c', 'Service'), ('d', 'Sonstiges')])
     project = models.ForeignKey(Project, verbose_name='Projekt')
     description = models.CharField(verbose_name='Bezeichnung', max_length=200)
-    amount = models.FloatField(verbose_name="Betrag")
+    inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
+    updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 
     class Meta:
         verbose_name = 'Erlös'

@@ -24,16 +24,16 @@ class ProjectMachineInline(admin.TabularInline):
     fk_name = 'project'
     extra = 0
     can_delete = False
-    exclude = ['assigned_employees', 'active']
-    readonly_fields = ['labour_costs', 'material_costs', 'total_costs']
+    exclude = ('assigned_employees', 'active')
+    readonly_fields = ('labour_costs', 'material_costs', 'total_costs', 'updated')
 
 
 @admin.register(Project)
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('number', 'description')
+    list_display = ('number', 'description', 'updated')
     search_fields = ('number', 'description')
     ordering = ('-number',)
-    readonly_fields = ('total_costs',)
+    readonly_fields = ('total_costs', 'inserted', 'updated')
 
     inlines = [
         ProjectMachineInline,
@@ -42,9 +42,11 @@ class ProjectAdmin(admin.ModelAdmin):
 
 @admin.register(LabourCost)
 class LabourCostAdmin(admin.ModelAdmin):
-    list_display = ('date', 'employee', 'duration', 'machine', 'comment')
+    list_display = ('date', 'employee', 'duration', 'machine', 'comment', 'updated')
     ordering = ('-date',)
     list_filter = ('comment',)
+
+    readonly_fields = ('inserted', 'updated')
 
 
 class MachineLabourCostInline(admin.TabularInline):
@@ -61,19 +63,19 @@ class MachineMaterialCostInline(admin.TabularInline):
 
 @admin.register(MaterialCost)
 class MaterialCostAdmin(admin.ModelAdmin):
-    list_display = ('machine', 'description', 'amount')
+    list_display = ('machine', 'description', 'amount', 'updated')
     ordering = ('-machine',)
 
 
 @admin.register(Machine)
 class MachineAdmin(admin.ModelAdmin):
-    list_display = ('number', 'description', 'type', 'active')
+    list_display = ('number', 'description', 'type', 'active', 'updated')
     ordering = ('-number',)
     list_filter = ('type', 'active')
     list_editable = ('active',)
     search_fields = ('number',)
 
-    readonly_fields = ('material_costs', 'labour_costs', 'total_costs')
+    readonly_fields = ('material_costs', 'labour_costs', 'total_costs', 'inserted', 'updated')
 
     inlines = [
         MachineLabourCostInline,
