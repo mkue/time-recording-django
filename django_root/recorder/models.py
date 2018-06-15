@@ -139,6 +139,7 @@ class Earning(models.Model):
                             choices=[('a', 'Maschine'), ('b', 'Ersatzteil'), ('c', 'Service'), ('d', 'Sonstiges')])
     project = models.ForeignKey(Project, verbose_name='Projekt')
     description = models.CharField(verbose_name='Bezeichnung', max_length=200)
+    amount = models.FloatField(verbose_name="Betrag")
     inserted = models.DateTimeField(verbose_name='Eingefügt', auto_now_add=True)
     updated = models.DateTimeField(verbose_name='Bearbeitet', auto_now=True)
 

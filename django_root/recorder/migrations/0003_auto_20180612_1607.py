@@ -13,10 +13,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name='earning',
-            name='amount',
-        ),
         migrations.AddField(
             model_name='earning',
             name='inserted',
